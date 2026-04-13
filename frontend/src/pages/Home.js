@@ -54,8 +54,12 @@ export default function Home() {
   const searchRef = useRef(null);
 
   useEffect(() => {
-    barbersAPI.getAll()
-      .then(r => { setBarbers(r.data); setFiltered(r.data); })
+ barbersAPI.getAll()
+  .then(r => {
+    const data = Array.isArray(r.data) ? r.data : [];
+    setBarbers(data);
+    setFiltered(data);
+  })
       .finally(() => setLoading(false));
   }, []);
 
